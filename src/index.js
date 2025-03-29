@@ -1,12 +1,20 @@
 // require('dotenv').config({path: './env'});
+import express from "express";  // ✅ Import Express
 import dotenv from "dotenv"; 
+import cors from "cors";  // ✅ Import CORS
 import connectDB from "./db/index.js";
+import userRoutes from "./routes/user.routes.js";
 
 dotenv.config({
     path: './.env'
 });
 
-// console.log("MongoDB URI:", process.env.MONGODB_URI); 
+// console.log("MongoDB URI:", process.env.MONGODB_URI);
+const app = express(); // ✅ Initialize the Express app
+// middlewares
+app.use(cors());          // Allow cross-origin requests
+app.use(express.json());
+app.use("/api/v1/users",userRoutes)
 
 connectDB() 
 .then(()=>{
